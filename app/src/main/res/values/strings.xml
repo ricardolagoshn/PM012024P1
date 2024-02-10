@@ -8,4 +8,5 @@
     <string name="correo">Ingrese correo</string>
     <string name="PantallaIngreso">Agregar Persona</string>
     <string name="PatallaLista">Lista Personas\t</string>
+    <string name="TomarFoto">Capturar Foto\t</string>
 </resources>

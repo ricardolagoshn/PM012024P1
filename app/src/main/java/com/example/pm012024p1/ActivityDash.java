@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class ActivityDash extends AppCompatActivity {
 
-    Button btnadd, btnlist;
+    Button btnadd, btnlist, btnimagen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,7 +17,7 @@ public class ActivityDash extends AppCompatActivity {
 
         btnadd =(Button) findViewById(R.id.btnadd);
         btnlist = (Button) findViewById(R.id.btnlist);
-
+        btnimagen = (Button) findViewById(R.id.btnimagen);
 
         btnadd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,6 +32,15 @@ public class ActivityDash extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ActivityList.class);
+                startActivity(intent);
+            }
+        });
+
+
+        btnimagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ActivityFoto.class);
                 startActivity(intent);
             }
         });

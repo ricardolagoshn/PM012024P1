@@ -35,6 +35,8 @@ public class ActivityList extends AppCompatActivity {
 
         ArrayAdapter adp = new ArrayAdapter(this, android.R.layout.simple_list_item_1,Arreglo);
         listpersonas.setAdapter(adp);
+
+        
     }
 
     private void ObtenerInfo()
