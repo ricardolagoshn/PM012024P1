@@ -2,15 +2,14 @@ package com.example.pm012024p1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Person;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -18,38 +17,56 @@ import Configuracion.SQLiteConexion;
 import Configuracion.Transacciones;
 import Models.Personas;
 
-public class ActivityList extends AppCompatActivity {
+public class ActivyCombo extends AppCompatActivity {
 
     SQLiteConexion conexion;
-    ListView listpersonas;
+    Spinner combopersonas;
+    EditText nombres, apellidos, correo;
+
     ArrayList<Personas> lista;
     ArrayList<String> Arreglo;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.activity_activy_combo);
+
 
         conexion = new SQLiteConexion(this, Transacciones.DBName, null, 1);
-        listpersonas = (ListView) findViewById(R.id.listpersonas);
+        combopersonas = (Spinner) findViewById(R.id.spinner);
+        nombres = (EditText) findViewById(R.id.cbnombre);
+        apellidos = (EditText) findViewById(R.id.cbapellido);
+        correo = (EditText) findViewById(R.id.cbcorreo);
 
         ObtenerInfo();
 
-        ArrayAdapter adp = new ArrayAdapter(this, android.R.layout.simple_list_item_1,Arreglo);
-        listpersonas.setAdapter(adp);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_item,
+                Arreglo);
 
-        listpersonas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        combopersonas.setAdapter(adapter);
+
+        combopersonas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try
+                {
+                    nombres.setText(lista.get(position).getNombres());
+                    apellidos.setText(lista.get(position).getApellidos());
+                    correo.setText(lista.get(position).getCorreo());
+                }
+                catch (Exception ex)
+                {
+                    ex.toString();
+                }
+            }
 
-                String ElementoSeleccionado =(String) parent.getItemAtPosition(position);
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-                Toast.makeText(getApplicationContext(),
-                        "Seleccionaste " + ElementoSeleccionado, Toast.LENGTH_LONG).show();
             }
         });
-        
+
+
     }
 
     private void ObtenerInfo()
@@ -84,8 +101,8 @@ public class ActivityList extends AppCompatActivity {
         for(int i = 0; i < lista.size(); i ++)
         {
             Arreglo.add(lista.get(i).getId() + " - "+
-                        lista.get(i).getNombres()  +" - "+
-                        lista.get(i).getApellidos()) ;
+                    lista.get(i).getNombres()  +" - "+
+                    lista.get(i).getApellidos()) ;
         }
     }
 }
